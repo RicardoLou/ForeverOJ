@@ -15,7 +15,7 @@ import java.util.Map;
  * EasyExcel 测试
  *
  * @author <a href="https://github.com/RicardoLou">RicardoLou</a>
- * @from <a href="https://forever.icu">编程导航知识星球</a>
+
  */
 @SpringBootTest
 public class EasyExcelTest {

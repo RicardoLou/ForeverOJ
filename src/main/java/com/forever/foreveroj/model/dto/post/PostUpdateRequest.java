@@ -8,7 +8,6 @@ import lombok.Data;
  * 更新请求
  *
  * @author <a href="https://github.com/RicardoLou">RicardoLou</a>
- * @from <a href="https://forever.icu">编程导航知识星球</a>
  */
 @Data
 public class PostUpdateRequest implements Serializable {

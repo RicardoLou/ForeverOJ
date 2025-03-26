@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forever.foreveroj.mapper.QuestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.forever.foreveroj.model.entity.Question">
+            <id property="id" column="id" />
+            <result property="title" column="title" />
+            <result property="content" column="content" />
+            <result property="tags" column="tags" />
+            <result property="answer" column="answer" />
+            <result property="submitNum" column="submitNum" />
+            <result property="acceptedNum" column="acceptedNum" />
+            <result property="judgeCase" column="judgeCase" />
+            <result property="judgeConfig" column="judgeConfig" />
+            <result property="thumbNum" column="thumbNum" />
+            <result property="favourNum" column="favourNum" />
+            <result property="userId" column="userId" />
+            <result property="createTime" column="createTime" />
+            <result property="updateTime" column="updateTime" />
+            <result property="isDelete" column="isDelete" />
+            <result property="difficulty" column="difficulty" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,content,tags,answer,submitNum,
+        acceptedNum,judgeCase,judgeConfig,thumbNum,favourNum,
+        userId,createTime,updateTime,isDelete,difficulty
+    </sql>
+</mapper>

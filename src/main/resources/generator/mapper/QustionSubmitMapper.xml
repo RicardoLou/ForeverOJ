@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forever.foreveroj.mapper.QustionSubmitMapper">
+
+    <resultMap id="BaseResultMap" type="com.forever.foreveroj.model.entity.QuestionSubmit">
+            <id property="id" column="id" />
+            <result property="language" column="language" />
+            <result property="code" column="code" />
+            <result property="judgeInfo" column="judgeInfo" />
+            <result property="status" column="status" />
+            <result property="questionId" column="questionId" />
+            <result property="userId" column="userId" />
+            <result property="createTime" column="createTime" />
+            <result property="updateTime" column="updateTime" />
+            <result property="isDelete" column="isDelete" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,language,code,judgeInfo,status,questionId,
+        userId,createTime,updateTime,isDelete
+    </sql>
+</mapper>

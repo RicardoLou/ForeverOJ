@@ -7,7 +7,6 @@ import lombok.Data;
  * 帖子收藏 / 取消收藏请求
  *
  * @author <a href="https://github.com/RicardoLou">RicardoLou</a>
- * @from <a href="https://forever.icu">编程导航知识星球</a>
  */
 @Data
 public class PostFavourAddRequest implements Serializable {
