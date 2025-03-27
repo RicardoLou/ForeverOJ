@@ -43,7 +43,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private static final String SALT = "forever";
 
     @Override
-    public long userRegister(String userAccount, String userPassword, String checkPassword) {
+    public long userRegister(String userAccount, String userName,String userPassword, String checkPassword) {
         // 1. 校验
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
@@ -51,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (userAccount.length() < 4) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户账号过短");
         }
-        if (userPassword.length() < 8 || checkPassword.length() < 8) {
+        if (userPassword.length() < 6 || checkPassword.length() < 6) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户密码过短");
         }
         // 密码和校验密码相同
@@ -71,6 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             // 3. 插入数据
             User user = new User();
             user.setUserAccount(userAccount);
+            user.setUserName(userName);
             user.setUserPassword(encryptPassword);
             boolean saveResult = this.save(user);
             if (!saveResult) {

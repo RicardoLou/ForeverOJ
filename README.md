@@ -1,7 +1,7 @@
 # OJ 在线判题系统
 
 
-[toc]
+[前端仓库地址](https://github.com/YYY-clid/ForeverOJ)
 
 ## 模板特点
 
