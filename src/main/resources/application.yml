@@ -89,3 +89,7 @@ cos:
     secretKey: xxx
     region: xxx
     bucket: xxx
+
+# 沙箱配置
+codeSandbox:
+  type: remote

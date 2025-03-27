@@ -15,7 +15,6 @@ import java.util.Map;
  * EasyExcel 测试
  *
  * @author <a href="https://github.com/RicardoLou">RicardoLou</a>
-
  */
 @SpringBootTest
 public class EasyExcelTest {
@@ -30,5 +29,4 @@ public class EasyExcelTest {
                 .doReadSync();
         System.out.println(list);
     }
-
 }

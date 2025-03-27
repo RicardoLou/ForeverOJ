@@ -10,7 +10,7 @@ import com.forever.foreveroj.judge.codesandbox.model.ExecuteCodeResponse;
  */
 public class RemoteCodeSandbox implements CodeSandbox {
     @Override
-    public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeResponse) {
+    public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
         System.out.println("远程代码沙箱");
         return null;
     }

@@ -11,8 +11,8 @@ public interface CodeSandbox {
     /**
      * 执行代码
      *
-     * @param executeCodeResponse
+     * @param executeCodeRequest
      * @return
      */
-    ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeResponse);
+    ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest);
 }
