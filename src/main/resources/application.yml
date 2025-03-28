@@ -51,6 +51,7 @@ server:
     session:
       cookie:
         max-age: 2592000
+      timeout: PT24H
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
