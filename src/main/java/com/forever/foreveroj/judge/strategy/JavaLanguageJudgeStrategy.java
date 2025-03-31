@@ -8,6 +8,7 @@ import com.forever.foreveroj.model.entity.Question;
 import com.forever.foreveroj.model.enums.JudgeInfoMessageEnum;
 
 import java.util.List;
+import java.util.Optional;
 
 public class JavaLanguageJudgeStrategy implements JudgeStrategy{
 
@@ -20,8 +21,8 @@ public class JavaLanguageJudgeStrategy implements JudgeStrategy{
     public JudgeInfo doJudge(JudgeContext judgeContext) {
 
         JudgeInfo judgeInfo = judgeContext.getJudgeInfo();
-        Long memory = judgeInfo.getMemory(); // 用户代码消耗空间
-        Long time = judgeInfo.getTime(); // 用户代码消耗时间
+        Long memory = Optional.ofNullable(judgeInfo.getMemory()).orElse(0L); // 用户代码消耗空间
+        Long time = Optional.ofNullable(judgeInfo.getTime()).orElse(0L); // 用户代码消耗时间
 
         List<String> inputList = judgeContext.getInputList();
         List<String> outputList = judgeContext.getOutputList();

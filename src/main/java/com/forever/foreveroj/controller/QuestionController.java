@@ -10,10 +10,15 @@ import com.forever.foreveroj.constant.UserConstant;
 import com.forever.foreveroj.exception.BusinessException;
 import com.forever.foreveroj.exception.ThrowUtils;
 import com.forever.foreveroj.model.dto.question.*;
+import com.forever.foreveroj.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.forever.foreveroj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.forever.foreveroj.model.entity.Question;
+import com.forever.foreveroj.model.entity.QuestionSubmit;
 import com.forever.foreveroj.model.entity.User;
+import com.forever.foreveroj.model.vo.QuestionSubmitVO;
 import com.forever.foreveroj.model.vo.QuestionVO;
 import com.forever.foreveroj.service.QuestionService;
+import com.forever.foreveroj.service.QuestionSubmitService;
 import com.forever.foreveroj.service.UserService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +44,10 @@ public class QuestionController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private QuestionSubmitService questionSubmitService;
+
 
     private final static Gson GSON = new Gson();
 
@@ -194,7 +203,7 @@ public class QuestionController {
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listQuestionVOByPage(@RequestBody QuestionQueryRequest QuestionQueryRequest,
-            HttpServletRequest request) {
+                                                               HttpServletRequest request) {
         long current = QuestionQueryRequest.getCurrent();
         long size = QuestionQueryRequest.getPageSize();
         // 限制爬虫
@@ -206,6 +215,7 @@ public class QuestionController {
 
     /**
      * 非脱敏数据查询（only admin）
+     *
      * @param questionQueryRequest
      * @param request
      * @return
@@ -228,7 +238,7 @@ public class QuestionController {
      */
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listMyQuestionVOByPage(@RequestBody QuestionQueryRequest QuestionQueryRequest,
-            HttpServletRequest request) {
+                                                                 HttpServletRequest request) {
         if (QuestionQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -285,4 +295,45 @@ public class QuestionController {
         boolean result = QuestionService.updateById(Question);
         return ResultUtils.success(result);
     }
+
+
+    /**
+     * 提交题目
+     *
+     * @param questionSubmitAddRequest
+     * @param request
+     * @return result 用户本次提交代码的编号
+     */
+    @PostMapping("/question_submit/do")
+    public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
+                                               HttpServletRequest request) {
+        if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 登录才能提交
+        final User loginUser = userService.getLoginUser(request);
+        Long questionSubmitID = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        return ResultUtils.success(questionSubmitID);
+    }
+
+    /**
+     * 分页获取题目提交列表查询（管理员外，用户只能看到非答案、提交代码等公开信息）
+     *
+     * @param questionSubmitQueryRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/question_submit/list/page")
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitByPage(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest,
+                                                                         HttpServletRequest request) {
+        long current = questionSubmitQueryRequest.getCurrent();
+        long size = questionSubmitQueryRequest.getPageSize();
+        // 从数据库中查询原始的题目提交分页信息
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size),
+                questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
+        final User loginUser = userService.getLoginUser(request);
+        // 返回脱敏信息
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
+    }
+
 }
