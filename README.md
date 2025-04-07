@@ -2,6 +2,7 @@
 
 
 [前端仓库地址](https://github.com/YYY-clid/ForeverOJ)
+[微服务仓库地址](https://github.com/RicardoLou/ForeverOJ-MicroService)
 
 ## 模板特点
 
